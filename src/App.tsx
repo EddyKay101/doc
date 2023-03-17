@@ -1,24 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import PlayingCard from './components/PlayingCard';
+import Buttons from './components/Buttons';
+import { deckOfCards } from './utils/deck';
+import { Card } from './model/DeckOfCards.model';
+import { dealCard, shuffle, flipCard } from './utils/helpers';
 
-function App() {
+function App(): JSX.Element {
+  const [cardArr, setCardArr] = useState<Card[]>([]);
+  const [cardFront, setCardFront] = useState<boolean>(true);
+  const [cardSelected, setSelectedCard] = useState<Card[]>([]);
+
+
+  useEffect(() => {
+    setCardArr(() => deckOfCards);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App">
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '40px auto 0px 180px', height: 282 }}>
+          {cardArr &&
+            cardArr.map((card: Card, index: number) => {
+              return (
+                <div key={index}>
+                  <PlayingCard suit={card.suit} rank={card.rank} color={card.color} cardFront={cardFront} />
+                </div>
+              );
+            })}
+        </div>
+        <Buttons shuffle={() => shuffle(deckOfCards, setCardArr, setSelectedCard)} dealCard={() => dealCard(cardArr, setCardArr, setSelectedCard, cardSelected)} flipCard={() => flipCard(setCardFront, cardFront)} />
+
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '40px auto 0px 180px' }}>
+          {cardSelected &&
+            cardSelected.map((card: Card, index: number) => {
+              return (
+                <div className="animated slideInUp" key={index}>
+                  <PlayingCard suit={card.suit} rank={card.rank} color={card.color} cardFront={true} />
+                </div>
+              );
+            })}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,47 @@
+.card-container {
+    height: 282px;
+    width: 200px;
+    background-color: white;
+    background-size: cover;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: -188px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.card-icon {
+    max-width: 20px;
+}
+
+.top-icon-container {
+    position: absolute;
+    top: 5px;
+    left: 5px
+}
+
+.bottom-icon-container {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    transform: rotate(-180deg);
+}
+
+@media only screen and (min-width: 641px) and (max-width: 960px) {
+    .card-container {
+        margin-left: -195px;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 640px) {
+    .card-container {
+        margin-left: -198px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .card-container {
+        margin-left: -200px;
+    }
+}
